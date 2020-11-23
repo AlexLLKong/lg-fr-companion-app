@@ -24,5 +24,18 @@
         "origin": "AUTHORED",
         "exported": true
     },
+    "alexllkong.kong/styles/breakpoints@0.0.2": {
+        "files": [
+            {
+                "relativePath": "src/components/breakpoints/breakpoints.scss",
+                "test": false,
+                "name": "breakpoints.scss"
+            }
+        ],
+        "mainFile": "src/components/breakpoints/breakpoints.scss",
+        "trackDir": "src/components/breakpoints",
+        "origin": "AUTHORED",
+        "exported": true
+    },
     "version": "14.8.8"
 }
