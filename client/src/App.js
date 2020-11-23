@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 import './App.css'
-
+import PokedexPage from 'pages/PokemonPage'
 function App() {
 	return (
 		<Router>
@@ -25,15 +25,11 @@ function App() {
 					<Users />
 				</Route>
 				<Route path="/">
-					<Home />
+					<PokedexPage />
 				</Route>
 			</Switch>
 		</Router>
 	)
-}
-
-function Home() {
-	return <h2>Home</h2>
 }
 
 function About() {
