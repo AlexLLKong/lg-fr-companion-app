@@ -1,7 +1,7 @@
 import React from 'react'
 import './SearchBar.scss'
 import searchImg from './search.png'
-const SearchBar = onChangeHandler => {
+const SearchBar = props => {
 	return (
 		<div className="searchContainer">
 			<img className="searchIcon" src={searchImg} alt="" />
@@ -10,7 +10,7 @@ const SearchBar = onChangeHandler => {
 				className="searchInput"
 				type="search"
 				placeholder="Search"
-				onChange={onChangeHandler}
+				onChange={props.onChangeHandler}
 			></input>
 		</div>
 	)

@@ -1,4 +1,7 @@
 @import '../../components/breakpoints/breakpoints.scss';
+body {
+	background-color: gray;
+}
 .container {
 	display: flex;
 	flex-direction: column;
