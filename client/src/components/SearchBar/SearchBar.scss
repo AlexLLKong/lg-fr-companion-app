@@ -1,9 +1,12 @@
 .searchInput {
 	padding: 0px 12px 0px 28px;
-	min-width: 50vw;
+	width: 100%;
 }
 .searchIcon {
 	position: relative;
-	top: 4px;
-	left: 28px;
+	top: 30px;
+	left: 10px;
+}
+.searchContainer {
+	width: min(50vw, 700px);
 }

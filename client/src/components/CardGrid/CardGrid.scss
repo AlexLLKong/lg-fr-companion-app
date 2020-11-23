@@ -1,0 +1,17 @@
+@import '@bit/alexllkong.kong.styles.breakpoints';
+
+.gridContainer {
+	display: grid;
+	grid-template-columns: auto;
+	gap: 1rem;
+	@include for-tablet-portrait-up {
+		grid-template-columns: auto auto;
+	}
+	@include for-tablet-landscape-up {
+		grid-template-columns: auto auto auto;
+	}
+	@include for-big-desktop-up {
+		grid-template-columns: auto auto auto auto;
+		gap: 2rem;
+	}
+}
