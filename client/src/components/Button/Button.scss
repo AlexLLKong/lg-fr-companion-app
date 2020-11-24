@@ -1,0 +1,44 @@
+@use 'sass:map';
+
+$primary: (
+	'normal': blue,
+	'color': white,
+	'hover': rgb(97, 97, 255),
+	'active': rgb(0, 0, 161),
+);
+$secondary: (
+	'normal': gray,
+	'color': white,
+	'hover': rgb(189, 189, 189),
+	'active': rgb(97, 97, 97),
+);
+$danger: (
+	'normal': red,
+	'color': white,
+	'hover': rgb(255, 97, 97),
+	'active': rgb(161, 0, 0),
+);
+$type-maps: (
+	'primary': $primary,
+	'secondary': $secondary,
+	'danger': $danger,
+);
+$types: ('primary', 'secondary', 'danger');
+@each $type in $types {
+	.btn-#{$type} {
+		background: map.get(map.get($type-maps, $type), 'normal');
+		color: map.get(map.get($type-maps, $type), 'color');
+		border-radius: 4px;
+		border-style: none;
+		font-size: 1rem;
+		padding: 0.25rem 1rem;
+		transition: background 0.1s ease-out 0s;
+	}
+	.btn-#{$type}:hover {
+		background: map.get(map.get($type-maps, $type), 'hover');
+	}
+	.btn-#{$type}:active {
+		background: map.get(map.get($type-maps, $type), 'active');
+		transition: none;
+	}
+}

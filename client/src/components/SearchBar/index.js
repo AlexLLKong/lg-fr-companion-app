@@ -4,10 +4,9 @@ import searchImg from './search.png'
 const SearchBar = props => {
 	return (
 		<div className="searchContainer">
-			<img className="searchIcon" src={searchImg} alt="" />
+			<img src={searchImg} alt="" />
 			<label htmlFor="search" />
 			<input
-				className="searchInput"
 				type="search"
 				placeholder="Search"
 				onChange={props.onChangeHandler}

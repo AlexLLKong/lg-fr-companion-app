@@ -1,12 +1,13 @@
-.searchInput {
-	padding: 0px 12px 0px 28px;
-	width: 100%;
-}
-.searchIcon {
-	position: relative;
-	top: 30px;
-	left: 10px;
-}
 .searchContainer {
-	width: min(50vw, 700px);
+	width: min(65vw, 700px);
+	img {
+		position: relative;
+		top: 30px;
+		left: 10px;
+	}
+	input {
+		padding: 0px 12px 0px 28px;
+		width: 100%;
+		font-size: 1rem;
+	}
 }

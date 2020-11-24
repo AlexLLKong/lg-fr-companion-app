@@ -2,6 +2,7 @@ import React from 'react'
 import SearchBar from 'components/SearchBar'
 import CardGrid from 'components/CardGrid'
 import Card from 'components/Card'
+import Button from 'components/Button'
 import './PokedexPage.scss'
 import test from './test.png'
 
@@ -39,6 +40,24 @@ const tempFn = e => {
 const PokedexPage = () => {
 	return (
 		<div className="container">
+			<Button
+				className="btn-primary"
+				onClick={() => console.log('button works')}
+			>
+				Click me
+			</Button>
+			<Button
+				className="btn-secondary"
+				onClick={() => console.log('button works')}
+			>
+				Click me
+			</Button>
+			<Button
+				className="btn-danger"
+				onClick={() => console.log('button works')}
+			>
+				Click me
+			</Button>
 			<SearchBar onChangeHandler={tempFn} />
 			<CardGrid>{generateCards(mockCardData)}</CardGrid>
 		</div>
