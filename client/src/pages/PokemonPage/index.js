@@ -1,67 +1,44 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import SearchBar from 'components/SearchBar'
-import CardGrid from 'components/CardGrid'
-import Card from 'components/Card'
-import Button from 'components/Button'
+import { filterPokedex } from '../../actions/PokedexActions'
+import Pokeball from 'components/Pokeball-animation'
 import './PokedexPage.scss'
-import test from './test.png'
 
-const mockCardData = [
-	{
-		title: 'Butterfree',
-		image: test,
-		id: '12',
-		tags: [
-			{
-				text: 'Bug',
-				bgColor: 'green',
-				color: 'black',
-			},
-			{
-				text: 'Flying',
-				bgColor: 'gray',
-				color: 'black',
-			},
-		],
-		buttonActions: [
-			{
-				name: 'Print',
-				function: () => console.log('button works'),
-			},
-		],
-	},
-]
-const generateCards = data => {
-	return data.map(x => <Card key={x.id} {...x} />)
-}
-const tempFn = e => {
-	console.log(e.target.value)
-}
-const PokedexPage = () => {
-	return (
+import { connect } from 'react-redux'
+
+const PokedexPage = ({
+	data,
+	pokedex,
+	isDataLoading,
+	isPokedexLoading,
+	filterPokedex,
+}) => {
+	let [query, setQuery] = useState('')
+
+	const tempFn = e => {
+		setQuery(e.target.value.toLowerCase())
+	}
+
+	useEffect(() => {
+		filterPokedex(data, query)
+	}, [data, query, filterPokedex])
+
+	return isDataLoading || isPokedexLoading ? (
 		<div className="container">
-			<Button
-				className="btn-primary"
-				onClick={() => console.log('button works')}
-			>
-				Click me
-			</Button>
-			<Button
-				className="btn-secondary"
-				onClick={() => console.log('button works')}
-			>
-				Click me
-			</Button>
-			<Button
-				className="btn-danger"
-				onClick={() => console.log('button works')}
-			>
-				Click me
-			</Button>
+			<Pokeball />
+		</div>
+	) : (
+		<div className="container">
 			<SearchBar onChangeHandler={tempFn} />
-			<CardGrid>{generateCards(mockCardData)}</CardGrid>
+			{pokedex}
 		</div>
 	)
 }
+const mapStatetoProps = state => ({
+	data: state.pokedex.data,
+	pokedex: state.pokedex.dex,
+	isDataLoading: state.pokedex.isDataLoading,
+	isPokedexLoading: state.pokedex.isPokedexLoading,
+})
 
-export { PokedexPage as default }
+export default connect(mapStatetoProps, { filterPokedex })(PokedexPage)

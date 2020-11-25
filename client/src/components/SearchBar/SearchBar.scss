@@ -1,13 +1,22 @@
 .searchContainer {
 	width: min(65vw, 700px);
-	img {
-		position: relative;
-		top: 30px;
-		left: 10px;
-	}
-	input {
-		padding: 0px 12px 0px 28px;
-		width: 100%;
-		font-size: 1rem;
+	border-radius: 20px;
+	box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.35);
+	-webkit-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.35);
+	-moz-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.35);
+	@supports (-webkit-appearance: none) or (-moz-appearance: none) {
+		input {
+			padding: 0.5rem 1.5rem;
+			border-radius: 20px;
+			border-style: solid;
+			border-color: rgb(214, 214, 214);
+			text-decoration: none;
+			width: 100%;
+			font-size: 1rem;
+			&:focus {
+				border-style: solid;
+				border-color: blue;
+			}
+		}
 	}
 }

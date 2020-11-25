@@ -19,7 +19,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "alexllkong.kong/card-grid@0.0.1": {
+    "alexllkong.kong/card-grid@0.0.2": {
         "files": [
             {
                 "relativePath": "src/components/CardGrid/CardGrid.scss",
@@ -37,7 +37,7 @@
         "origin": "AUTHORED",
         "exported": true
     },
-    "alexllkong.kong/search-bar@0.0.4": {
+    "alexllkong.kong/search-bar@0.0.5": {
         "files": [
             {
                 "relativePath": "src/components/SearchBar/SearchBar.scss",
@@ -48,11 +48,6 @@
                 "relativePath": "src/components/SearchBar/index.js",
                 "test": false,
                 "name": "index.js"
-            },
-            {
-                "relativePath": "src/components/SearchBar/search.png",
-                "test": false,
-                "name": "search.png"
             }
         ],
         "mainFile": "src/components/SearchBar/index.js",
@@ -70,6 +65,19 @@
         ],
         "mainFile": "src/components/breakpoints/breakpoints.scss",
         "trackDir": "src/components/breakpoints",
+        "origin": "AUTHORED",
+        "exported": true
+    },
+    "alexllkong.kong/styles/pokemon-type-colors@0.0.1": {
+        "files": [
+            {
+                "relativePath": "src/components/PokemonTypeColors/PokemonTypeColors.scss",
+                "test": false,
+                "name": "PokemonTypeColors.scss"
+            }
+        ],
+        "mainFile": "src/components/PokemonTypeColors/PokemonTypeColors.scss",
+        "trackDir": "src/components/PokemonTypeColors",
         "origin": "AUTHORED",
         "exported": true
     },

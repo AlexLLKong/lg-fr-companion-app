@@ -2,16 +2,13 @@
 
 .gridContainer {
 	display: grid;
-	grid-template-columns: auto;
+	width: 80%;
+	padding: 2rem 0;
+	grid-template-columns: repeat(auto-fit, 280px);
+	justify-content: center;
 	gap: 1rem;
-	@include for-tablet-portrait-up {
-		grid-template-columns: auto auto;
-	}
-	@include for-tablet-landscape-up {
-		grid-template-columns: auto auto auto;
-	}
+
 	@include for-big-desktop-up {
-		grid-template-columns: auto auto auto auto;
 		gap: 2rem;
 	}
 }
