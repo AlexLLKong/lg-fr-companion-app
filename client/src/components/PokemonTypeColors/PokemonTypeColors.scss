@@ -26,3 +26,11 @@ $typeColor: (
 		}
 	}
 }
+
+@mixin bg-gradient {
+	@each $type, $value in $typeColor {
+		.bg-grad-#{$type} {
+			background: linear-gradient($value, white);
+		}
+	}
+}

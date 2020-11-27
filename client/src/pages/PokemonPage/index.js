@@ -24,7 +24,7 @@ const PokedexPage = ({
 	}, [data, query, filterPokedex])
 
 	return isDataLoading || isPokedexLoading ? (
-		<div className="container">
+		<div className="loadingPokeball">
 			<Pokeball />
 		</div>
 	) : (

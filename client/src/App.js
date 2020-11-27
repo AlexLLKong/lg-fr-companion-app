@@ -11,7 +11,7 @@ function App() {
 	return (
 		<Provider store={store}>
 			<Router>
-				<nav>
+				{/* <nav>
 					<ul>
 						<li>
 							<Link to="/">Home</Link>
@@ -23,7 +23,7 @@ function App() {
 							<Link to="/users">Users</Link>
 						</li>
 					</ul>
-				</nav>
+				</nav> */}
 				<Switch>
 					<Route path="/about">
 						<About />
