@@ -4,6 +4,7 @@ import store from 'store'
 import { Provider } from 'react-redux'
 import { getPokedex } from 'actions/PokedexActions'
 import PokedexPage from 'pages/PokemonPage'
+import TeamPage from 'pages/TeamPage'
 function App() {
 	useEffect(() => {
 		store.dispatch(getPokedex())
@@ -11,22 +12,22 @@ function App() {
 	return (
 		<Provider store={store}>
 			<Router>
-				{/* <nav>
+				<nav>
 					<ul>
 						<li>
-							<Link to="/">Home</Link>
+							<Link to="/">Pokedex</Link>
 						</li>
 						<li>
-							<Link to="/about">About</Link>
+							<Link to="/team">Team</Link>
 						</li>
 						<li>
 							<Link to="/users">Users</Link>
 						</li>
 					</ul>
-				</nav> */}
+				</nav>
 				<Switch>
-					<Route path="/about">
-						<About />
+					<Route path="/team">
+						<TeamPage />
 					</Route>
 					<Route path="/users">
 						<Users />
@@ -38,10 +39,6 @@ function App() {
 			</Router>
 		</Provider>
 	)
-}
-
-function About() {
-	return <h2>About</h2>
 }
 
 function Users() {

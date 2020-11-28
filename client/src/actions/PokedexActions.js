@@ -7,6 +7,7 @@ import {
 import Card from '../components/Card'
 import CardGrid from '../components/CardGrid'
 import { Pokedex } from 'pokeapi-js-wrapper'
+import { addPokemontoTeam } from './TeamActions'
 const options = {
 	cache: true,
 	cacheImages: true,
@@ -74,7 +75,7 @@ export const getPokedex = () => dispatch => {
 export const filterPokedex = (data, query = '') => dispatch => {
 	dispatch({ type: POKEDEX_LOADING })
 
-	const cards = generateCards(configureData(data), query)
+	const cards = generateCards(configureData(data, dispatch), query)
 	dispatch({
 		type: POKEDEX_LOADED,
 		payload: cards,
@@ -102,40 +103,41 @@ const filterTypes = types => {
 		]
 	return types
 }
-const configureData = dataResponse => {
-	return dataResponse.map(x => ({
-		title: x.name,
-		image: x.sprites.other.dream_world.front_default,
-		id: x.id,
-		tags: filterTypes(x.types),
+const configureData = (dataResponse, dispatch) => {
+	return dataResponse.map(x => {
+		const fireAddPokemonToTeam = () => {
+			dispatch(addPokemontoTeam(x))
+		}
+		return {
+			title: x.name,
+			image: x.sprites.other.dream_world.front_default,
+			id: x.id,
+			tags: filterTypes(x.types),
 
-		buttonActions: [
-			{
-				name: 'Temp',
-				function: () => console.log('button works'),
-			},
-		],
-		info: [
-			[
-				x.flavor_text_entries.find(
-					y =>
-						y.language.name === 'en' && y.version.name === 'firered'
-				).flavor_text,
+			buttonActions: [fireAddPokemonToTeam],
+			info: [
+				[
+					x.flavor_text_entries.find(
+						y =>
+							y.language.name === 'en' &&
+							y.version.name === 'firered'
+					).flavor_text,
+				],
+				[
+					...x.abilities.map(y => {
+						if (y === undefined) console.log(x)
+						return {
+							name: formatAbilityName(y.name),
+							description: y.effect_entries.find(
+								z => z.language.name === 'en'
+							).short_effect,
+							isHidden: y.is_hidden,
+						}
+					}),
+				],
 			],
-			[
-				...x.abilities.map(y => {
-					if (y === undefined) console.log(x)
-					return {
-						name: formatAbilityName(y.name),
-						description: y.effect_entries.find(
-							z => z.language.name === 'en'
-						).short_effect,
-						isHidden: y.is_hidden,
-					}
-				}),
-			],
-		],
-	}))
+		}
+	})
 }
 
 const generateCards = (data, query) => {

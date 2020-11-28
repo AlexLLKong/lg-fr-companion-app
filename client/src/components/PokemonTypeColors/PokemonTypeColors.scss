@@ -21,7 +21,7 @@ $typeColor: (
 );
 @mixin type-colors($property) {
 	@each $type, $value in $typeColor {
-		.type-#{$type} {
+		.#{$property}-#{$type} {
 			#{$property}: $value;
 		}
 	}

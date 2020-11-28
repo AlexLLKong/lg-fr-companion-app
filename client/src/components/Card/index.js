@@ -7,9 +7,7 @@ import './Card.scss'
  * @param {Object[]} tags - Tags pertaining to the card
  * @param {string} tags[].text - The text of the tag
  * @param {string} tags[].type - String corresponding to some color
- * @param {Object[]} buttonActions - Functions that will attach to buttons
- * @param {string} buttonActions.name - The button text
- * @param {Function} buttonActions.function - The function that will be called onClick
+ * @param {Function[]} buttonActions - Functions that will attach to buttons
  * @param {Array} info - Array where each index is an array of info category items
  *  */
 const Card = ({ title, image, id, tags, buttonActions, info }) => {
@@ -33,10 +31,7 @@ const Card = ({ title, image, id, tags, buttonActions, info }) => {
 						src={image}
 						alt={`${title}`}
 						onLoad={() => {
-							if (!isImageLoaded)
-								//	setTimeout(() => {
-								setIsImageLoaded(true)
-							//}, 500)
+							if (!isImageLoaded) setIsImageLoaded(true)
 						}}
 					/>
 					<div className="cardInfo">
@@ -47,7 +42,7 @@ const Card = ({ title, image, id, tags, buttonActions, info }) => {
 								{tags.map(tag => (
 									<h5
 										key={tag.text}
-										className={`type-${tag.type}`}
+										className={`border-color-${tag.type}`}
 									>
 										{tag.text}
 									</h5>
@@ -77,12 +72,20 @@ const Card = ({ title, image, id, tags, buttonActions, info }) => {
 						</div>
 						<div className="buttons">
 							<Button
-								className="btn-primary"
+								className="btn-secondary"
 								onClick={() => {
 									setIsMoreInfo(!isMoreInfo)
 								}}
 							>
 								More info
+							</Button>
+							<Button
+								className="btn-primary"
+								onClick={() => {
+									buttonActions[0]()
+								}}
+							>
+								Add to team
 							</Button>
 						</div>
 					</div>
