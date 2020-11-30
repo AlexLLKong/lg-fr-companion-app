@@ -20,6 +20,22 @@
 		}
 	}
 }
+.headerContainer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	cursor: pointer;
+	.sectionHeader {
+		display: inline;
+	}
+	.carat {
+		user-select: none;
+		transition: transform 0.1s ease-in-out;
+	}
+}
+.collapseCarat {
+	transform: rotate(180deg);
+}
 .matchupIcon {
 	display: inline;
 }

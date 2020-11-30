@@ -8,12 +8,19 @@ const MatchupSection = ({ type, typeMatchups }) => {
 	}, [collapsed, setCollapseClass])
 	return (
 		<React.Fragment>
-			<h4
-				className={`background-${type}`}
+			<div
+				className={`${styles.headerContainer} background-${type}`}
 				onClick={() => setCollapsed(!collapsed)}
 			>
-				{type}
-			</h4>
+				<h4 className={styles.sectionHeader}>{type}</h4>
+				<span
+					className={`material-icons ${styles.carat} ${
+						collapsed ? styles.collapseCarat : ''
+					}`}
+				>
+					keyboard_arrow_up
+				</span>
+			</div>
 			<div className={`${styles.typeMatchup} ${collapseClass}`}>
 				{typeMatchups[type].map(x => (
 					<div

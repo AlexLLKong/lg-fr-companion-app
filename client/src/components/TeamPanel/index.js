@@ -35,9 +35,19 @@ const TeamPanel = ({ teamInfo, types, typeChart }) => {
 	return (
 		<React.Fragment>
 			<div className={styles.teamPanel}>
-				<h3 onClick={() => setCollapsed(!collapsed)}>
-					Defense Matchups
-				</h3>
+				<div
+					className={styles.sectionHeader}
+					onClick={() => setCollapsed(!collapsed)}
+				>
+					<h3>Defense Matchups</h3>
+					<span
+						className={`material-icons ${styles.carat} ${
+							collapsed ? styles.collapseCarat : ''
+						}`}
+					>
+						keyboard_arrow_up
+					</span>
+				</div>
 				<div className={`${styles.matchupContainer} ${collapseClass}`}>
 					{POKEMON_TYPES.map(type => (
 						<MatchupSection

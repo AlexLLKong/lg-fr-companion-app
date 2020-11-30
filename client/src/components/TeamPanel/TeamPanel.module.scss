@@ -6,10 +6,21 @@
 	background: #fff;
 	border-radius: 10px;
 	box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.35);
-	h3 {
-		user-select: none;
+	.sectionHeader {
 		cursor: pointer;
-		margin-left: 1rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		h3 {
+			display: inline;
+			user-select: none;
+			margin-left: 1rem;
+		}
+		.carat {
+			margin-right: 0.75rem;
+			user-select: none;
+			transition: transform 0.1s ease-in-out;
+		}
 	}
 	.matchupContainer {
 		width: 304px;
@@ -23,6 +34,7 @@
 			margin: 0;
 			padding: 0.25rem 1rem;
 		}
+
 		@include for-tablet-landscape-up {
 			height: auto;
 		}
@@ -30,4 +42,7 @@
 }
 .collapsed {
 	display: none;
+}
+.collapseCarat {
+	transform: rotate(180deg);
 }
