@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { getPokedex } from 'actions/PokedexActions'
 import PokedexPage from 'pages/PokemonPage'
 import TeamPage from 'pages/TeamPage'
+import AboutPage from 'pages/AboutPage'
 import Navbar from 'components/Navbar'
 function App() {
 	useEffect(() => {
@@ -18,8 +19,8 @@ function App() {
 					<Route path="/team">
 						<TeamPage />
 					</Route>
-					<Route path="/users">
-						<Users />
+					<Route path="/about">
+						<AboutPage />
 					</Route>
 					<Route path="/">
 						<PokedexPage />
@@ -28,10 +29,6 @@ function App() {
 			</Router>
 		</Provider>
 	)
-}
-
-function Users() {
-	return <h2>Users</h2>
 }
 
 export default App

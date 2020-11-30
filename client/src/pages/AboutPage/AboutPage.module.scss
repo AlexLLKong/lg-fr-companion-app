@@ -1,0 +1,30 @@
+@import '../../components/breakpoints/breakpoints.scss';
+.aboutText {
+	margin: 1rem 0.5rem;
+	@include for-desktop-up {
+		margin: 1rem;
+	}
+}
+.textContainer {
+	width: 80%;
+	height: auto;
+	background: white;
+	border-radius: 10px;
+	box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.55);
+	padding: 1rem;
+	h1 {
+		margin: 1rem 0.5rem;
+	}
+	@include for-desktop-up {
+		width: 40%;
+		h1 {
+			margin: 1rem;
+		}
+	}
+	@include for-big-desktop-up {
+		width: 30%;
+		h1 {
+			margin: 1rem;
+		}
+	}
+}

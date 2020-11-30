@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import styles from './Navbar.module.scss'
 
-const linkUrls = ['/', '/team', '/users']
-const linkNames = ['Pokedex', 'Team', 'Users']
+const linkUrls = ['/', '/team', '/about']
+const linkNames = ['Pokedex', 'Team', 'About']
 
 const Navbar = () => {
 	let location = useLocation()
