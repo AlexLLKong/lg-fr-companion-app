@@ -4,13 +4,11 @@ const Roster = ({ team, setSelected }) => {
 	let [highlightMember, setHighlightMember] = useState(team.map(member => ''))
 	let [memberLoaded, setMemberLoaded] = useState(team.map(member => ''))
 	useEffect(() => {
-		console.log(memberLoaded)
 		if (
 			memberLoaded.filter(mem => mem === 'loaded').length ===
 			memberLoaded.length
 		) {
 			setMemberLoaded(memberLoaded.map(mem => styles.showTransition))
-			console.log(memberLoaded)
 		}
 	}, [memberLoaded])
 	return (
