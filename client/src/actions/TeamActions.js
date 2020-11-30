@@ -1,13 +1,33 @@
-import { ADDED_TO_TEAM, TYPES_LOADING, TYPES_LOADED } from './types'
+import {
+	ADDED_TO_TEAM,
+	TYPES_LOADING,
+	TYPES_LOADED,
+	MODIFY_USER_INFO,
+	REMOVE_FROM_TEAM,
+} from './types'
 import { Pokedex } from 'pokeapi-js-wrapper'
-
+import { v4 as uuidv4 } from 'uuid'
 const options = {
 	cache: true,
 	cacheImages: true,
 }
 const P = new Pokedex(options)
+
+const userInfo = {
+	nickname: '',
+	level: 1,
+	nature: 'hardy',
+	moves: ['-', '-', '-', '-'],
+}
 export const addPokemontoTeam = pokemon => {
-	return { type: ADDED_TO_TEAM, payload: pokemon }
+	return {
+		type: ADDED_TO_TEAM,
+		payload: { ...pokemon, userInfo, rosterId: uuidv4() },
+	}
+}
+
+export const removePokemonFromTeam = rosterId => {
+	return { type: REMOVE_FROM_TEAM, payload: rosterId }
 }
 
 export const getTypes = () => dispatch => {
@@ -58,4 +78,9 @@ export const getTypes = () => dispatch => {
 			})
 		})
 		.catch(err => console.log(err))
+}
+
+export const modifyUserInfo = (member, newUserInfo) => dispatch => {
+	member.userInfo = { ...newUserInfo }
+	dispatch({ type: MODIFY_USER_INFO, payload: member })
 }

@@ -1,0 +1,13 @@
+.editMemberForm {
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
+	.formGroup {
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+	}
+	.longButton {
+		margin-top: 0.5rem;
+	}
+}

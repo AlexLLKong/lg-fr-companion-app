@@ -1,0 +1,33 @@
+@import '../../components/breakpoints/breakpoints.scss';
+
+.teamPanel {
+	width: 304px;
+	height: auto;
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.35);
+	h3 {
+		user-select: none;
+		cursor: pointer;
+		margin-left: 1rem;
+	}
+	.matchupContainer {
+		width: 304px;
+		height: 230px;
+		border-radius: 0 0 10px 10px;
+		overflow-y: scroll;
+		overflow-x: hidden;
+		h4 {
+			user-select: none;
+			cursor: pointer;
+			margin: 0;
+			padding: 0.25rem 1rem;
+		}
+		@include for-tablet-landscape-up {
+			height: auto;
+		}
+	}
+}
+.collapsed {
+	display: none;
+}

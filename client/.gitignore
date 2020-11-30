@@ -26,5 +26,8 @@ yarn-error.log*
 .bit
 dist
 
-#debug
+# debug
 .vscode
+
+# fun stuff
+.VSCodeCounter

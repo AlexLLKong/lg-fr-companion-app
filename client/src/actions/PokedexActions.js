@@ -7,7 +7,6 @@ import {
 import Card from '../components/Card'
 import CardGrid from '../components/CardGrid'
 import { Pokedex } from 'pokeapi-js-wrapper'
-import { addPokemontoTeam } from './TeamActions'
 const options = {
 	cache: true,
 	cacheImages: true,
@@ -20,6 +19,7 @@ export const getPokedex = () => dispatch => {
 
 	P.getPokemonByName(pokemonIds)
 		.then(pokemonList => {
+			// In lgfr pokemon <=> pokemon species
 			P.getPokemonSpeciesByName(pokemonIds).then(pokemonSpecies => {
 				let combined = pokemonList.map((pokemon, index) => {
 					return {
@@ -34,12 +34,13 @@ export const getPokedex = () => dispatch => {
 					'generation-i',
 				]
 				P.getAbilityByName(abilityIds).then(abilities => {
+					// filter out newer abilities
 					abilities = abilities.filter(x =>
 						generations.find(y => y === x.generation.name)
 							? true
 							: false
 					)
-
+					// add abilities to pokedex data
 					const regex = /(?<=ability\/)(.*)(?=\/)/
 					combined = combined.map(pokemon => {
 						pokemon.abilities = pokemon.abilities
@@ -61,6 +62,38 @@ export const getPokedex = () => dispatch => {
 
 						return pokemon
 					})
+					// filter out moves that are not obtainable in lgfr
+					combined = combined.map(pokemon => {
+						pokemon.moves = pokemon.moves.filter(move =>
+							move.version_group_details.filter(group => {
+								return (
+									group.version_group.name ===
+									'firered-leafgreen'
+								)
+							}).length > 0
+								? true
+								: false
+						)
+						return pokemon
+					})
+					// filter out fairy types for normal
+					combined = combined.map(pokemon => {
+						pokemon.types = pokemon.types
+							.map((typeObj, i) => {
+								if (typeObj.type.name === 'fairy' && i === 0) {
+									return {
+										slot: typeObj.slot,
+										type: {
+											name: 'normal',
+											url:
+												'https://pokeapi.co/api/v2/type/1/',
+										},
+									}
+								} else return typeObj
+							})
+							.filter(typeObj => typeObj.type.name !== 'fairy')
+						return pokemon
+					})
 
 					dispatch({
 						type: POKEDEX_DATA_LOADED,
@@ -72,10 +105,14 @@ export const getPokedex = () => dispatch => {
 		.catch(err => console.log(err))
 }
 
-export const filterPokedex = (data, query = '') => dispatch => {
+export const filterPokedex = (
+	data,
+	query = '',
+	addPokemontoTeam
+) => dispatch => {
 	dispatch({ type: POKEDEX_LOADING })
 
-	const cards = generateCards(configureData(data, dispatch), query)
+	const cards = generateCards(configureData(data, addPokemontoTeam), query)
 	dispatch({
 		type: POKEDEX_LOADED,
 		payload: cards,
@@ -103,10 +140,10 @@ const filterTypes = types => {
 		]
 	return types
 }
-const configureData = (dataResponse, dispatch) => {
+const configureData = (dataResponse, addPokemontoTeam) => {
 	return dataResponse.map(x => {
 		const fireAddPokemonToTeam = () => {
-			dispatch(addPokemontoTeam(x))
+			addPokemontoTeam(x)
 		}
 		return {
 			title: x.name,

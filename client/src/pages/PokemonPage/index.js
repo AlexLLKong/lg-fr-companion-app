@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import SearchBar from 'components/SearchBar'
 import { filterPokedex } from '../../actions/PokedexActions'
+import { addPokemontoTeam } from '../../actions/TeamActions'
 import Pokeball from 'components/Pokeball-animation'
 import './PokedexPage.scss'
 
@@ -12,16 +13,17 @@ const PokedexPage = ({
 	isDataLoading,
 	isPokedexLoading,
 	filterPokedex,
+	addPokemontoTeam,
 }) => {
 	let [query, setQuery] = useState('')
 
-	const tempFn = e => {
+	const handleSetQuery = e => {
 		setQuery(e.target.value.toLowerCase())
 	}
 
 	useEffect(() => {
-		filterPokedex(data, query)
-	}, [data, query, filterPokedex])
+		filterPokedex(data, query, addPokemontoTeam)
+	}, [data, query, filterPokedex, addPokemontoTeam])
 
 	return isDataLoading || isPokedexLoading ? (
 		<div className="loadingPokeball">
@@ -29,7 +31,7 @@ const PokedexPage = ({
 		</div>
 	) : (
 		<div className="container">
-			<SearchBar onChangeHandler={tempFn} />
+			<SearchBar onChangeHandler={handleSetQuery} />
 			{pokedex}
 		</div>
 	)
@@ -41,4 +43,6 @@ const mapStatetoProps = state => ({
 	isPokedexLoading: state.pokedex.isPokedexLoading,
 })
 
-export default connect(mapStatetoProps, { filterPokedex })(PokedexPage)
+export default connect(mapStatetoProps, { filterPokedex, addPokemontoTeam })(
+	PokedexPage
+)

@@ -1,0 +1,28 @@
+.typeMatchup {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	overflow-x: hidden;
+	.teamMatchups {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		background: #fff;
+
+		img {
+			width: 48px;
+			height: 48px;
+		}
+		.matchup {
+			display: inline;
+			margin: 0;
+		}
+	}
+}
+.matchupIcon {
+	display: inline;
+}
+.collapsed {
+	display: none;
+}
