@@ -11,6 +11,10 @@ const AboutPage = () => {
 					<a href="https://pokeapi.co/">PokeApi</a>.{' '}
 				</p>
 				<p className={styles.aboutText}>
+					Having more than 6 pokemon on your team is definitely a
+					feature not a bug 👍
+				</p>
+				<p className={styles.aboutText}>
 					{' '}
 					The source code is available on{' '}
 					<a href="https://github.com/AlexLLKong/lg-fr-companion-app">

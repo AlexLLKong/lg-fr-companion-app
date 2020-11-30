@@ -15,6 +15,7 @@ const TeamPanel = ({ teamInfo, types, typeChart }) => {
 			defMatchups[type.name] = teamInfo.map(pokemon => {
 				return {
 					name: pokemon.name,
+					rosterId: pokemon.rosterId,
 					img: pokemon.sprites.front_default,
 					matchup: calculateMatchup(
 						[...pokemon.types.map(x => x.type)],

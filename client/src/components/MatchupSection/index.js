@@ -25,7 +25,7 @@ const MatchupSection = ({ type, typeMatchups }) => {
 				{typeMatchups[type].map(x => (
 					<div
 						className={`${styles.teamMatchups}`}
-						key={`${type} ${x.name} matchup`}
+						key={`${type} ${x.rosterId} matchup`}
 					>
 						<img
 							src={x.img}
