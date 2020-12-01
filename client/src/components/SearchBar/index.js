@@ -7,7 +7,7 @@ const SearchBar = props => {
 			<label htmlFor="search" />
 			<input
 				type="search"
-				placeholder="Search"
+				placeholder="Search by name or use a search term like type: fire, see About page for more"
 				onChange={props.onChangeHandler}
 			></input>
 		</div>

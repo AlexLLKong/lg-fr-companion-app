@@ -6,11 +6,12 @@ const Roster = ({ team, setSelected }) => {
 	useEffect(() => {
 		if (
 			memberLoaded.filter(mem => mem === 'loaded').length ===
-			memberLoaded.length
+				memberLoaded.length &&
+			memberLoaded.length !== 0
 		) {
 			setMemberLoaded(memberLoaded.map(mem => styles.showTransition))
 		}
-	}, [memberLoaded])
+	}, [memberLoaded, team])
 	return (
 		<div className={styles.memberContainer}>
 			{team.map((member, i) => {

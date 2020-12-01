@@ -4,7 +4,13 @@ import Button from '../Button'
 import styles from './EditMember.module.scss'
 const dummyMove = {
 	move: { name: '-' },
-	version_group_details: [{ level_learned_at: 0 }],
+	version_group_details: [
+		{
+			level_learned_at: 0,
+			move_learn_method: { name: 'n/a' },
+			version_group: { name: 'firered-leafgreen' },
+		},
+	],
 }
 const EditMember = ({ pokemon, modifyPokemon, setShowEditMember }) => {
 	let [nickname, setNickname] = useState(pokemon.userInfo.nickname)

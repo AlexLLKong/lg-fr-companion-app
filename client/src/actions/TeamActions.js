@@ -14,7 +14,13 @@ const options = {
 const P = new Pokedex(options)
 const dummyMove = {
 	move: { name: '-' },
-	version_group_details: [{ level_learned_at: 0 }],
+	version_group_details: [
+		{
+			level_learned_at: 0,
+			move_learn_method: { name: 'n/a' },
+			version_group: { name: 'firered-leafgreen' },
+		},
+	],
 }
 const userInfo = {
 	nickname: '',

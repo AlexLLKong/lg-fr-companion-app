@@ -12,7 +12,16 @@ const options = {
 	cacheImages: true,
 }
 const P = new Pokedex(options)
-
+const dummyMove = {
+	move: { name: '-' },
+	version_group_details: [
+		{
+			level_learned_at: 0,
+			move_learn_method: { name: 'n/a' },
+			version_group: { name: 'firered-leafgreen' },
+		},
+	],
+}
 export const getPokedex = () => dispatch => {
 	dispatch({ type: POKEDEX_DATA_LOADING })
 	const pokemonIds = Array.from(Array(151), (_, x) => x + 1)
@@ -64,16 +73,19 @@ export const getPokedex = () => dispatch => {
 					})
 					// filter out moves that are not obtainable in lgfr
 					combined = combined.map(pokemon => {
-						pokemon.moves = pokemon.moves.filter(move =>
-							move.version_group_details.filter(group => {
-								return (
-									group.version_group.name ===
-									'firered-leafgreen'
-								)
-							}).length > 0
-								? true
-								: false
-						)
+						pokemon.moves = [
+							...pokemon.moves.filter(move =>
+								move.version_group_details.filter(group => {
+									return (
+										group.version_group.name ===
+										'firered-leafgreen'
+									)
+								}).length > 0
+									? true
+									: false
+							),
+							dummyMove,
+						]
 						return pokemon
 					})
 					// filter out fairy types for normal
@@ -112,7 +124,7 @@ export const filterPokedex = (
 ) => dispatch => {
 	dispatch({ type: POKEDEX_LOADING })
 
-	const cards = generateCards(configureData(data, addPokemontoTeam), query)
+	const cards = generateCards(configureData(data, addPokemontoTeam, query))
 	dispatch({
 		type: POKEDEX_LOADED,
 		payload: cards,
@@ -140,7 +152,8 @@ const filterTypes = types => {
 		]
 	return types
 }
-const configureData = (dataResponse, addPokemontoTeam) => {
+const configureData = (dataResponse, addPokemontoTeam, query) => {
+	dataResponse = routeQuery(dataResponse, query)
 	return dataResponse.map(x => {
 		const fireAddPokemonToTeam = () => {
 			addPokemontoTeam(x)
@@ -177,14 +190,56 @@ const configureData = (dataResponse, addPokemontoTeam) => {
 	})
 }
 
-const generateCards = (data, query) => {
+const generateCards = data => {
 	return (
 		<CardGrid>
-			{data
-				.filter(x => (query ? x.title.includes(query) : x))
-				.map(x => (
-					<Card key={x.id} {...x} />
-				))}
+			{data.map(x => (
+				<Card key={x.id} {...x} />
+			))}
 		</CardGrid>
 	)
+}
+
+const typeRegex = RegExp('type:.*')
+const idRegex = RegExp('id:.*')
+const abilityRegex = RegExp('ability:.*')
+const eggGroupRegex = RegExp('egg:.*')
+
+const routeQuery = (data, query) => {
+	if (typeRegex.test(query)) {
+		return data.filter(x =>
+			x.types.filter(obj => query.includes(obj.type.name)).length > 0
+				? true
+				: false
+		)
+	} else if (idRegex.test(query)) {
+		return data.filter(
+			x => x.id === parseInt(query.replace(/ /g, '').substr(3))
+		)
+	} else if (abilityRegex.test(query)) {
+		return data.filter(x =>
+			x.abilities.filter(obj =>
+				formatAbilityName(obj.ability.name)
+					.toLowerCase()
+					.includes(query.substr(8))
+			).length > 0
+				? true
+				: false
+		)
+	} else if (query === '!team') {
+		const team = JSON.parse(localStorage.getItem('team'))
+		return data.filter(x =>
+			team.find(y => y.name === x.name) ? true : false
+		)
+	} else if (eggGroupRegex.test(query)) {
+		return data.filter(x =>
+			x.egg_groups.filter(obj =>
+				obj.name.includes(query.replace(/ /g, '').substr(4))
+			).length > 0
+				? true
+				: false
+		)
+	} else {
+		return data.filter(x => (query ? x.name.includes(query) : x))
+	}
 }
