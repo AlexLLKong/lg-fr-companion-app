@@ -114,7 +114,7 @@ const EditMember = ({ pokemon, modifyPokemon, setShowEditMember }) => {
 							}}
 						>
 							<optgroup label="level">
-								<option value={dummyMove}>-</option>
+								<option value={dummyMove.move.name}>-</option>
 								{pokemon.moves
 									.filter(move => {
 										const z = selectMoves.find(
