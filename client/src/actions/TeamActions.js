@@ -12,12 +12,20 @@ const options = {
 	cacheImages: true,
 }
 const P = new Pokedex(options)
-
+const dummyMove = {
+	move: { name: '-' },
+	version_group_details: [{ level_learned_at: 0 }],
+}
 const userInfo = {
 	nickname: '',
 	level: 1,
 	nature: 'hardy',
-	moves: ['-', '-', '-', '-'],
+	moves: [
+		{ ...dummyMove },
+		{ ...dummyMove },
+		{ ...dummyMove },
+		{ ...dummyMove },
+	],
 }
 export const addPokemontoTeam = pokemon => {
 	return {

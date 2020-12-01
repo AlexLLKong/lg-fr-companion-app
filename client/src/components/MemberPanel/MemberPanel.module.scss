@@ -21,6 +21,15 @@
 			.moveInfo {
 				display: flex;
 				flex-direction: column;
+				.warning {
+					font-size: 0.75rem;
+					user-select: none;
+					padding: 0.2rem;
+					color: red;
+					border-style: solid;
+					border-radius: 10px;
+					border-color: red;
+				}
 			}
 		}
 	}

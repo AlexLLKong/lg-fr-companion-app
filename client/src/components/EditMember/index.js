@@ -1,12 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { POKEMON_NATURES } from '../../actions/types'
 import Button from '../Button'
 import styles from './EditMember.module.scss'
+const dummyMove = {
+	move: { name: '-' },
+	version_group_details: [{ level_learned_at: 0 }],
+}
 const EditMember = ({ pokemon, modifyPokemon, setShowEditMember }) => {
 	let [nickname, setNickname] = useState(pokemon.userInfo.nickname)
 	let [level, setLevel] = useState(pokemon.userInfo.level)
 	let [nature, setNature] = useState(pokemon.userInfo.nature)
 	let [moves, setMoves] = useState(pokemon.userInfo.moves)
+	let [selectMoves, setSelectMoves] = useState(
+		pokemon.userInfo.moves.map(obj => obj.move.name)
+	)
 	const handleSubmit = e => {
 		e.preventDefault()
 		const newUserInfo = {
@@ -18,6 +25,20 @@ const EditMember = ({ pokemon, modifyPokemon, setShowEditMember }) => {
 		modifyPokemon(pokemon, newUserInfo)
 		setShowEditMember(prevShowEditMember => !prevShowEditMember)
 	}
+	const handleMoveSelect = (e, i) => {
+		setMoves([
+			...moves.map((move, j) => {
+				if (i - 1 === j)
+					return pokemon.moves.find(
+						obj => obj.move.name === e.target.value
+					)
+				return moves[j]
+			}),
+		])
+	}
+	useEffect(() => {
+		setSelectMoves([...moves.map(obj => obj.move.name)])
+	}, [moves])
 	const levels = Array.from(Array(100), (_, x) => x + 1)
 	return (
 		<form onSubmit={handleSubmit} className={styles.editMemberForm}>
@@ -81,20 +102,21 @@ const EditMember = ({ pokemon, modifyPokemon, setShowEditMember }) => {
 						<select
 							id={`move${i}`}
 							name={`move${i}`}
-							value={moves[i - 1]}
+							value={selectMoves[i - 1]}
 							onChange={e => {
-								setMoves([
-									...moves.map((move, j) => {
-										if (i - 1 === j) return e.target.value
-										return moves[j]
-									}),
-								])
+								handleMoveSelect(e, i)
 							}}
 						>
 							<optgroup label="level">
-								<option value="-">-</option>
+								<option value={dummyMove}>-</option>
 								{pokemon.moves
 									.filter(move => {
+										const z = selectMoves.find(
+											(w, index) =>
+												move.move.name === w &&
+												index !== i - 1
+										)
+										if (z) return false
 										const y = move.version_group_details.find(
 											x => {
 												return (
@@ -129,7 +151,7 @@ const EditMember = ({ pokemon, modifyPokemon, setShowEditMember }) => {
 										return (
 											<option
 												key={`${pokemon.rosterId} ${move.move.name}`}
-												value={`${move.move.name}`}
+												value={move.move.name}
 											>
 												{`${
 													move.move.name
@@ -169,7 +191,7 @@ const EditMember = ({ pokemon, modifyPokemon, setShowEditMember }) => {
 										return (
 											<option
 												key={`${pokemon.rosterId} ${move.move.name}`}
-												value={`${move.move.name}`}
+												value={move.move.name}
 											>
 												{`${move.move.name}`}
 											</option>
@@ -196,7 +218,7 @@ const EditMember = ({ pokemon, modifyPokemon, setShowEditMember }) => {
 										return (
 											<option
 												key={`${pokemon.rosterId} ${move.move.name}`}
-												value={`${move.move.name}`}
+												value={move.move.name}
 											>
 												{`${move.move.name}`}
 											</option>
@@ -223,7 +245,7 @@ const EditMember = ({ pokemon, modifyPokemon, setShowEditMember }) => {
 										return (
 											<option
 												key={`${pokemon.rosterId} ${move.move.name}`}
-												value={`${move.move.name}`}
+												value={move.move.name}
 											>
 												{`${move.move.name}`}
 											</option>
